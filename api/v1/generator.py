@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Query
 
-from .handlers import generate_password_handler
-
+from .handlers import generate_password_handler, check_password_handler
 
 router = APIRouter()
 
@@ -22,3 +21,8 @@ async def generate_password(
         use_digits=use_digits,
         use_special=use_special
     )
+
+
+@router.get("/check")
+async def check_password(password: str = Query(min_length=8, max_length=100)):
+    return await check_password_handler(password)

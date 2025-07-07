@@ -36,3 +36,23 @@ def generate_password(
     password += random.choices(alphabet, k=remaining)
     random.shuffle(password)
     return ''.join(password)
+
+
+def calculate_entropy(password: str) -> float:
+    """Password Entropy calculation."""
+    categories = set()
+    charsets = {
+        "lower": LOWERCASE,
+        "upper": UPPERCASE,
+        "digit": DIGITS,
+        "special": SPECIAL
+    }
+
+    for char in password:
+        for cat, charset in charsets.items():
+            if char in charset:
+                categories.add(cat)
+                break
+
+    n = sum(len(charsets[cat]) for cat in categories)
+    return len(password) * math.log2(n) if n > 0 else 0.0

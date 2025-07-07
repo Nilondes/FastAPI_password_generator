@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 
-from api.v1.functions import generate_password
+from api.v1.functions import generate_password, calculate_entropy
 
 
 async def generate_password_handler(
@@ -27,4 +27,23 @@ async def generate_password_handler(
 
     return {
         "password": password
+    }
+
+
+async def check_password_handler(password: str):
+    """Password strength evaluation handler."""
+    if len(password) > 100:
+        raise HTTPException(
+            status_code=400,
+            detail="Password exceeds maximum length (100)"
+        )
+    if not password:
+        raise HTTPException(
+            status_code=400,
+            detail="Password cannot be empty"
+        )
+
+    entropy = calculate_entropy(password)
+    return {
+        "entropy": round(entropy, 2)
     }
