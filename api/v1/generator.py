@@ -1,12 +1,24 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
-
-from api.v1.handlers import get_password
+from .handlers import generate_password_handler
 
 
 router = APIRouter()
 
 
 @router.get("")
-async def get_password():
-        pass
+async def generate_password(
+    length: int = Query(..., ge=1, le=100),
+    use_lowercase: bool = Query(True),
+    use_uppercase: bool = Query(False),
+    use_digits: bool = Query(False),
+    use_special: bool = Query(False)
+):
+    """Endpoint for password generator."""
+    return await generate_password_handler(
+        length=length,
+        use_lowercase=use_lowercase,
+        use_uppercase=use_uppercase,
+        use_digits=use_digits,
+        use_special=use_special
+    )
