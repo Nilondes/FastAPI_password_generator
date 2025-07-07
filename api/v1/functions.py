@@ -1,12 +1,12 @@
 import math
 import random
+import string
 
 
-LOWERCASE = "abcdefghijklmnopqrstuvwxyz"
-UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-DIGITS = "0123456789"
-SPECIAL = "!@#$%^&*()_+-=[]{}|;:,.<>?/"
-FULL_ALPHABET = LOWERCASE + UPPERCASE + DIGITS + SPECIAL
+LOWERCASE = string.ascii_lowercase
+UPPERCASE = string.ascii_uppercase
+DIGITS = string.digits
+SPECIAL = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
 
 def generate_password(
@@ -18,13 +18,21 @@ def generate_password(
 ) -> str:
     """Generating password by given parameters."""
     alphabet = ""
+    password = []
     if use_lowercase:
         alphabet += LOWERCASE
+        password.append(random.choice(LOWERCASE))
     if use_uppercase:
         alphabet += UPPERCASE
+        password.append(random.choice(UPPERCASE))
     if use_digits:
         alphabet += DIGITS
+        password.append(random.choice(DIGITS))
     if use_special:
         alphabet += SPECIAL
+        password.append(random.choice(SPECIAL))
 
-    return ''.join(random.choices(alphabet, k=length))
+    remaining = length - len(password)
+    password += random.choices(alphabet, k=remaining)
+    random.shuffle(password)
+    return ''.join(password)

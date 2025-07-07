@@ -8,8 +8,8 @@ router = APIRouter()
 
 @router.get("")
 async def generate_password(
-    length: int = Query(..., ge=1, le=100),
-    use_lowercase: bool = Query(True),
+    length: int = Query(ge=8, le=100),
+    use_lowercase: bool = Query(False),
     use_uppercase: bool = Query(False),
     use_digits: bool = Query(False),
     use_special: bool = Query(False)

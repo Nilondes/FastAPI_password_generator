@@ -5,17 +5,12 @@ from api.v1.functions import generate_password
 
 async def generate_password_handler(
     length: int,
-    use_lowercase: bool = True,
+    use_lowercase: bool = False,
     use_uppercase: bool = False,
     use_digits: bool = False,
     use_special: bool = False
 ):
     """Password generator handler wih validation."""
-    if length < 1 or length > 100:
-        raise HTTPException(
-            status_code=400,
-            detail="Length must be between 1 and 100"
-        )
     if not any([use_lowercase, use_uppercase, use_digits, use_special]):
         raise HTTPException(
             status_code=400,
