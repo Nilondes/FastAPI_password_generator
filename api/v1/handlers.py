@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 
-from api.v1.functions import generate_password, calculate_entropy
+from api.v1.functions import generate_password, calculate_entropy, get_strength
 
 
 async def generate_password_handler(
@@ -45,5 +45,6 @@ async def check_password_handler(password: str):
 
     entropy = calculate_entropy(password)
     return {
-        "entropy": round(entropy, 2)
+        "entropy": round(entropy, 2),
+        "strength": get_strength(entropy)
     }
