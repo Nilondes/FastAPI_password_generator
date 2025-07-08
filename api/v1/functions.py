@@ -60,8 +60,12 @@ def calculate_entropy(password: str) -> float:
 
 def get_strength(entropy: float) -> str:
     """Evaluate entropy into strength."""
-    if entropy < 38: return "very weak"
-    elif entropy < 46: return "weak"
-    elif entropy < 60: return "medium"
-    elif entropy < 128: return "strong"
+    if entropy < 38:
+        return "very weak"
+    elif entropy < 46:
+        return "weak"
+    elif entropy < 60:
+        return "medium"
+    elif entropy < 128:
+        return "strong"
     return "very strong"
