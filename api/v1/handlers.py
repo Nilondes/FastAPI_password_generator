@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 
 from api.v1.functions import generate_password, calculate_entropy, get_strength
+from api.v1.schemas import PasswordGenerateResponse, PasswordCheckResponse
 
 
 async def generate_password_handler(
@@ -9,7 +10,7 @@ async def generate_password_handler(
     use_uppercase: bool = False,
     use_digits: bool = False,
     use_special: bool = False
-):
+) -> PasswordGenerateResponse:
     """Password generator handler wih validation."""
     if not any([use_lowercase, use_uppercase, use_digits, use_special]):
         raise HTTPException(
@@ -25,12 +26,10 @@ async def generate_password_handler(
         use_special=use_special
     )
 
-    return {
-        "password": password
-    }
+    return PasswordGenerateResponse(password=password)
 
 
-async def check_password_handler(password: str):
+async def check_password_handler(password: str) -> PasswordCheckResponse:
     """Password strength evaluation handler."""
     if len(password) > 100:
         raise HTTPException(
@@ -44,7 +43,7 @@ async def check_password_handler(password: str):
         )
 
     entropy = calculate_entropy(password)
-    return {
-        "entropy": round(entropy, 2),
-        "strength": get_strength(entropy)
-    }
+    return PasswordCheckResponse(
+        entropy=round(entropy, 2),
+        strength=get_strength(entropy)
+    )

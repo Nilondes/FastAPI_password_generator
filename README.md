@@ -30,6 +30,7 @@ python main.py
 
 The service will be available by http://localhost:8000
 
+The SWAGGER is available by http://localhost:8000/docs#
 
 ## Endpoints
 
