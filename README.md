@@ -8,7 +8,7 @@ The service provide RESTful API for password generation and strength evaluation.
 - Input parameters validation
 - RESTful interface
 
-## Gettings started
+## Getting started
 
 1. Clone repository:
 ```sh
@@ -59,8 +59,8 @@ entropy = L * log2(N)
 
 where L is password length and N is sum of length of chosen character sets
 
-Use postman is provided file to test endpoints.
+Import the provided postman collection file to test endpoints.
 
 The variables are:
 
-{ "base_url": "http://localhost:8000"}
+{ "base_url": "http://localhost:8000"}.
