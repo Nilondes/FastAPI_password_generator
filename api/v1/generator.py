@@ -13,9 +13,9 @@ router = APIRouter()
 
 
 @router.get("", response_model=PasswordGenerateResponse)
-async def generate_password(params: PasswordGenerateRequest = Depends()):
+def generate_password(params: PasswordGenerateRequest = Depends()):
     """Endpoint for password generator."""
-    return await generate_password_handler(
+    return generate_password_handler(
         length=params.length,
         use_lowercase=params.use_lowercase,
         use_uppercase=params.use_uppercase,
@@ -25,5 +25,5 @@ async def generate_password(params: PasswordGenerateRequest = Depends()):
 
 
 @router.get("/check",  response_model=PasswordCheckResponse)
-async def check_password(params: PasswordCheckRequest = Depends()):
-    return await check_password_handler(params.password)
+def check_password(params: PasswordCheckRequest = Depends()):
+    return check_password_handler(params.password)
