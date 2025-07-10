@@ -4,7 +4,7 @@ from api.v1.functions import generate_password, calculate_entropy, get_strength
 from api.v1.schemas import PasswordGenerateResponse, PasswordCheckResponse
 
 
-async def generate_password_handler(
+def generate_password_handler(
     length: int,
     use_lowercase: bool = False,
     use_uppercase: bool = False,
@@ -29,7 +29,7 @@ async def generate_password_handler(
     return PasswordGenerateResponse(password=password)
 
 
-async def check_password_handler(password: str) -> PasswordCheckResponse:
+def check_password_handler(password: str) -> PasswordCheckResponse:
     """Password strength evaluation handler."""
     if len(password) > 100:
         raise HTTPException(
